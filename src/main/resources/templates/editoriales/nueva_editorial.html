@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body id="page-top">
+    <!-- Navigation-->
+    <nav th:replace="/fragments/navbar :: nav"></nav>
+    <!-- Masthead-->
+    <header class="masthead min-vh-100 align-items-center centrado">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 align-items-center bi-text-left">
+                <div class="col-lg-9 text-white espacios">
+                    <div th:if="${exito} != null" class="card text-white bg-success mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">¡Éxito!</h5>
+                            <p class="card-text" th:text="${exito}"></p>
+                        </div>
+                    </div>
+                    <div th:if="${error} != null" class="card text-white bg-danger mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">¡Ups!</h5>
+                            <p class="card-text" th:text="${error}"></p>
+                        </div>
+                    </div>
+                    <h1>Ingresar una nueva editorial</h1>
+                    <div>
+                        <form class="row g-3" th:action="@{/editoriales/nueva_editorial}" method="POST">
+                            <div class="col-md-6">
+                                <label for="inputTitulo" class="form-label">Nombre de la Editorial</label>
+                                <input type="text" class="form-control" id="inputTitulo" th:value="${nombre}"
+                                    name="nombre" placeholder="Ingrese el nombre de su editorial..." required>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">¡Guardar editorial!</button>
+                                <a type="button" class="btn btn-secondary lateral_margins"
+                                    th:href="@{/#editoriales}">Regresar al Menú Editorial</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Footer-->
+    <footer th:replace="/fragments/footer :: footer"></footer>
+    <!-- Scripts from Bootstrap -->
+    <script th:replace="/fragments/bootstrapjs :: script"></script>
+</body>
+
+</html>

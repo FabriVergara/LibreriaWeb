@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body id="page-top">
+    <!-- Navigation-->
+    <nav th:replace="/fragments/navbar :: nav"></nav>
+    <!-- Masthead-->
+    <header class="masthead min-vh-100">
+        <div class="container px-4 px-lg-5 ">
+            <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center bi-text-left">
+                <div class="col-lg-8 text-white espacios">
+                    <div th:if="${exito} != null" class="card text-white bg-success mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">¡Éxito!</h5>
+                            <p class="card-text" th:text="${exito}"></p>
+                        </div>
+                    </div>
+                    <div th:if="${error} != null" class="card text-white bg-danger mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">¡Ups!</h5>
+                            <p class="card-text" th:text="${error}"></p>
+                        </div>
+                    </div>
+                    <h1>Ingresar un nuevo cliente</h1>
+                    <div>
+                        <form class="row g-3" th:action="@{/clientes/nuevo_cliente}" method="POST">
+                            <div class="col-md-6">
+                                <label for="inputNombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="inputNombre" name="nombre"
+                                    placeholder="Cosme..." th:value="${nombre}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputApellido" class="form-label">Apellido</label>
+                                <input type="text" class="form-control" id="inputApellido" name="apellido"
+                                    placeholder="Fulanito..." th:value="${apellido}" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="inputDni" class="form-label">DNI</label>
+                                <input type="number" class="form-control" id="inputDni" name="dni"
+                                    placeholder="Ingrese el DNI..." th:value="${dni}" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="inputTelefono" class="form-label">Teléfono</label>
+                                <input type="number" class="form-control" id="inputTelefono" name="telefono"
+                                    placeholder="Ingrese número de teléfono..." th:value="${telefono}" required>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">¡Crear cliente!</button>
+                                <a type="button" class="btn btn-secondary lateral_margins"
+                                    th:href="@{/#clientes}">Regresar al Menú Clientes</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Footer-->
+    <footer th:replace="/fragments/footer :: footer"></footer>
+    <!-- Scripts from Bootstrap -->
+    <script th:replace="/fragments/bootstrapjs :: script"></script>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body id="page-top">
+    <!-- Navigation-->
+    <nav th:replace="/fragments/navbar :: nav"></nav>
+    <!-- Masthead-->
+    <header class="masthead min-vh-100">
+        <div class="container px-4 px-lg-5 ">
+            <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center bi-text-left">
+                <div class="col-lg-8 text-white espacios">
+                    <div th:if="${exito} != null" class="card text-white bg-success mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">¡Éxito!</h5>
+                            <p class="card-text" th:text="${exito}"></p>
+                        </div>
+                    </div>
+                    <div th:if="${error} != null" class="card text-white bg-danger mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">¡Ups!</h5>
+                            <p class="card-text" th:text="${error}"></p>
+                        </div>
+                    </div>
+                    <h1>Ingresar un nuevo libro</h1>
+                    <div>
+                        <form class="row g-3" th:action="@{/libros/nuevo_libro}" method="POST">
+                            <div class="col-md-12">
+                                <label for="inputTitulo" class="form-label">Titulo del Libro</label>
+                                <input type="text" class="form-control" id="inputTitulo" name="titulo"
+                                    placeholder="La llamada de Cthulhu..." th:value="${titulo}" required>
+                            </div>
+
+                            <div class="col-8">
+                                <label for="inputAutor" class="form-label">Seleccione Autor</label>
+                                <select class="form-control" name="idAutor" id="inputAutor" required>
+                                    <option th:each="autor : ${autores}" th:value="${autor.id}"
+                                        th:text="${autor.nombre}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label for="btnAutor" class="form-label">...o cree un autor nuevo</label>
+                                <a type="button" class="btn btn-warning full_width_btn"
+                                    th:href="@{/autores/nuevo_autor}">Ir a
+                                    Crear Nuevo Autor</a>
+                            </div>
+                            <div class="col-8">
+                                <label class="form-label">Seleccione Editorial</label>
+                                <select class="form-control" name="idEditorial" id="inputEditorial" required>
+                                    <option th:each="editorial : ${editoriales}" th:value="${editorial.id}"
+                                        th:text="${editorial.nombre}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label class="form-label">...o cree una editorial nueva</label>
+                                <a type="button" class="btn btn-warning full_width_btn"
+                                    th:href="@{/editoriales/nueva_editorial}">Ir a
+                                    Crear Nueva Editorial</a>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputISBN" class="form-label">Código ISBN</label>
+                                <input type="number" class="form-control" id="inputISBN" name="isbn"
+                                    placeholder="123456..." th:value="${isbn}" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputAnio" class="form-label">Año de publicación</label>
+                                <input type="number" class="form-control" id="inputAnio" name="anio" placeholder="2015"
+                                    th:value="${anio}" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputEjemplares" class="form-label">Ejemplares totales</label>
+                                <input type="number" class="form-control" id="inputEjemplares" name="ejemplares"
+                                    placeholder="¿Cuántos copias hay?" th:value="${ejemplares}" required>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">¡Guardar libro!</button>
+                                <a type="button" class="btn btn-secondary lateral_margins"
+                                    th:href="@{/#libros}">Regresar al Menú Libro</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Footer-->
+    <footer th:replace="/fragments/footer :: footer"></footer>
+    <!-- Scripts from Bootstrap -->
+    <script th:replace="/fragments/bootstrapjs :: script"></script>
+</body>
+
+</html>

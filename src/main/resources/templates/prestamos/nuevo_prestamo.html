@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body id="page-top">
+    <!-- Navigation-->
+    <nav th:replace="/fragments/navbar :: nav"></nav>
+    <!-- Masthead-->
+    <header class="masthead min-vh-100">
+        <div class="container px-4 px-lg-5 ">
+            <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center bi-text-left">
+                <div class="col-lg-8 text-white espacios">
+                    <div th:if="${exito} != null" class="card text-white bg-success mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">¡Éxito!</h5>
+                            <p class="card-text" th:text="${exito}"></p>
+                        </div>
+                    </div>
+                    <div th:if="${error} != null" class="card text-white bg-danger mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">¡Ups!</h5>
+                            <p class="card-text" th:text="${error}"></p>
+                        </div>
+                    </div>
+                    <h1>Ingresar un nuevo prestamo</h1>
+                    <div>
+                        <form class="row g-3" th:action="@{/prestamos/nuevo_prestamo}" method="POST">
+                            <div class="col-md-6">
+                                <label for="inputCliente" class="form-label">Cliente que realiza el prestamo</label>
+                                <select class="form-control" name="idCliente" id="inputCliente" required>
+                                    <option th:each="cliente : ${clientes}" th:value="${cliente.id}"
+                                        th:text="${cliente.nombre}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputLibro" class="form-label">Libro a prestar</label>
+                                <select class="form-control" name="idLibro" id="inputLibro" required>
+                                    <option th:each="libro : ${libros}" th:value="${libro.id}"
+                                        th:text="${libro.titulo}">
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">¡Realizar préstamo!</button>
+                                <a type="button" class="btn btn-secondary lateral_margins"
+                                    th:href="@{/#prestamos}">Regresar al Menú Préstamos</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Footer-->
+    <footer th:replace="/fragments/footer :: footer"></footer>
+    <!-- Scripts from Bootstrap -->
+    <script th:replace="/fragments/bootstrapjs :: script"></script>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body id="page-top">
+    <!-- Navigation-->
+    <nav th:replace="/fragments/navbar :: nav"></nav>
+    <!-- Masthead-->
+    <header class="masthead min-vh-100">
+        <div class="container px-4 px-lg-5 ">
+            <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center bi-text-left">
+                <div class="col-lg-8 text-white espacios">
+                    <div th:if="${error} != null" class="card text-white bg-danger mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">¡Ups!</h5>
+                            <p class="card-text" th:text="${error}"></p>
+                        </div>
+                    </div>
+                    <h1>Modificar préstamo</h1>
+                    <div>
+                        <!-- Uso de una variable de pre-procesamiento -->
+                        <form class="row g-3" th:action="@{/prestamos/modificar/__${prestamo.id}__}" method="POST">
+                            <!-- Input invisible con el valor del id y el nombre "id" -->
+                            <input hidden th:value="${prestamo.id}" name="id">
+                            <div class="col-md-6">
+                                <label for="inputCliente" class="form-label">Nuevo cliente del prestamo</label>
+                                <!-- Uso de th:selected="${variable o condición}" para prefijar el valor actual del prestamo -->
+                                <select class="form-control" name="idCliente" id="inputCliente" required>
+                                    <option th:each="cliente : ${clientes}" th:value="${cliente.id}"
+                                        th:text="${cliente.nombre}" th:selected="${cliente.id==prestamo.cliente.id}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputLibro" class="form-label">Nuevo libro prestado</label>
+                                <!-- Uso de th:selected="${variable o condición}" para prefijar el valor actual del prestamo -->
+                                <select class="form-control" name="idLibro" id="inputLibro" required>
+                                    <option th:each="libro : ${libros}" th:value="${libro.id}" th:text="${libro.titulo}"
+                                        th:selected="${libro.id==prestamo.libro.id}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">¡Actualizar préstamo!</button>
+                                <a type="button" class="btn btn-secondary lateral_margins"
+                                    th:href="@{/prestamos/listado_prestamos}">Regresar al Listado de Préstamos</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Footer-->
+    <footer th:replace="/fragments/footer :: footer"></footer>
+    <!-- Scripts from Bootstrap -->
+    <script th:replace="/fragments/bootstrapjs :: script"></script>
+</body>
+
+</html>

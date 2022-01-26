@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body id="page-top">
+    <!-- Navigation-->
+    <nav th:replace="/fragments/navbar :: nav"></nav>
+    <!-- Masthead-->
+    <header class="masthead min-vh-100">
+        <div class="container px-4">
+            <div class="row gx-4 gx-lg-5 h-100 align-items-start justify-content-start bi-text-left">
+                <div class="col-lg-12 text-white espacios align-items-start">
+                    <div th:if="${exito} != null" class="card text-white bg-success mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">¡Éxito!</h5>
+                            <p class="card-text" th:text="${exito}"></p>
+                        </div>
+                    </div>
+                    <div th:if="${error} != null" class="card text-white bg-danger mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">¡Ups!</h5>
+                            <p class="card-text" th:text="${error}"></p>
+                        </div>
+                    </div>
+                    <h1>Autores guardados</h1>
+                    <div class="table-responsive">
+                        <table class="table text-white-75">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">¿Está activo?</th>
+                                    <th scope="col">Editar</th>
+                                    <th scope="col">Dar de alta/baja</th>
+                                </tr>
+                            </thead>
+                            <!--                Uso de la etiqueta th:each para iterar todos los autores -->
+                            <tbody th:each="autor : ${autores}">
+                                <!--                    Usamos los th:text="${objeto.atributo}" para mostrar el dato de cada iteración-->
+                                <tr>
+                                    <td scope="row" th:text="${autor.nombre}"></td>
+                                    <!--                        Uso de la etiqueta th:if & th:unless para mostrar un ícono o el otro según un booleano (alta)-->
+                                    <td>
+                                        <i th:if="${autor.alta}" class="fas fa-check-circle color-green"></i>
+                                        <i th:unless="${autor.alta}" class="fas fa-times-circle color-red"></i>
+                                    </td>
+                                    <td><a th:href="@{/autores/modificar/__${autor.id}__}"><i
+                                                class="far fa-edit"></i></a></td> <!-- EDITAR -->
+                                    <td>
+                                        <a th:if="${autor.alta}" th:href="@{/autores/baja/__${autor.id}__}"><i
+                                                class="fas fa-trash-alt"></i></a> <!-- DAR BAJA -->
+                                        <a th:unless="${autor.alta}" th:href="@{/autores/alta/__${autor.id}__}"><i
+                                                class="fas fa-arrow-alt-circle-up"></i></a> <!-- DAR ALTA -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex_right">
+                        <a type="button" class="btn btn-secondary lateral_margins" th:href="@{/#autores}">Regresar al
+                            Menú Autor</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Footer-->
+    <footer th:replace="/fragments/footer :: footer"></footer>
+    <!-- Scripts from Bootstrap -->
+    <script th:replace="/fragments/bootstrapjs :: script"></script>
+</body>
+
+</html>
